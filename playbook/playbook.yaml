@@ -1,0 +1,25 @@
+
+- name: Install Docker and Docker compose
+  hosts: all
+  vars_files:
+    - ~/ansible-playground/vars/ansible_ssh_vars.yaml
+  tasks:
+    - name: Install packages (Debian distributions)
+      apt:
+        name:
+          - curl
+          - nano
+        state: present
+        update_cache: yes
+      become: yes
+      when: ansible_os_family == "Debian"
+      
+    - name: Install packages (Red hat distributions)
+      yum:
+        name:
+          - curl
+          - nano
+        state: present
+        update_cache: yes
+      become: yes
+      when: ansible_os_family == "RedHat"

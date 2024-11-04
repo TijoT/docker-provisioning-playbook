@@ -1,0 +1,10 @@
+# Default ansible inventory file located at `/etc/ansible/hosts`
+
+localhost ansible_connection=local
+target ansible_host=192.168.0.125 ansible_connection=ssh ansible_port=4022 ansible_ssh_private_key_file=~/.ssh/id_rsa
+
+[Ubuntu]
+target
+
+[Debian]
+localhost
