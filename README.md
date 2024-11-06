@@ -14,7 +14,7 @@ It supports both Debian/Ubuntu and CentOS/RHEL-based systems.
 ## Ansible installation
 Install ansible on controller as well as on targets based on OS
 * [Installing Ansible on Ubuntu](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-ubuntu)
-* [Installing Ansibl on Debian](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-debian)
+* [Installing Ansible on Debian](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-debian)
 
 
 ## SSH access using keys to target
