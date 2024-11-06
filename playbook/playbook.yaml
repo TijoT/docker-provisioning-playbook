@@ -4,7 +4,7 @@
   vars_files:
     - ~/ansible-playground/vars/ansible_ssh_vars.yaml
   tasks:
-    - name: Install packages (Debian distributions)
+    - name: "Install packages (Debian distributions)"
       apt:
         name:
           - curl
@@ -13,8 +13,8 @@
         update_cache: yes
       become: yes
       when: ansible_os_family == "Debian"
-      
-    - name: Install packages (Red hat distributions)
+
+    - name: "Install packages (Red hat distributions)"
       yum:
         name:
           - curl
@@ -23,3 +23,39 @@
         update_cache: yes
       become: yes
       when: ansible_os_family == "RedHat"
+
+    - name: "Check whether Docker is installed"
+      command: "docker --version"
+      register: docker_version
+      ignore_errors: yes
+
+    - name: "Download and install latest stable versions of Docker CLI, Docker Engine"
+      shell: "curl -fsSL https://get.docker.com | sh"
+      async: 150   # seconds
+      poll: 10     # seconds; set to '0' for concurrent task
+      become: yes
+      notify:
+        - "Get Docker Version"
+        - "Get Docker Compose Version"
+      when: docker_version.failed
+
+  handlers:
+    - name: "Get_docker_version"
+      command: "docker --version"
+      register: result
+      listen: "Get Docker Version"
+
+    - set_fact:
+        versions: "{{ versions | default([]) + [result.stdout] }}"
+
+    - name: "Get_docker_compose_version"
+      command: "docker compose version"
+      register: result
+      listen: "Get Docker Compose Version"
+
+    - set_fact:
+        versions: "{{ versions + [result.stdout] }}"
+
+    - name: "Print Docker, Docker Compose Versions"
+      debug:
+        msg: "{{ versions }}"
