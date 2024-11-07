@@ -3,11 +3,15 @@ This playbook installs and configures Docker and Docker Compose on multiple host
 It supports both Debian/Ubuntu and CentOS/RHEL-based systems.
 
 ## Host details
-* Controller
+* Controller (Rpi-4B)
     * OS: Debian GNU/Linux 12 (bookworm)
     * Architecture: arm64
 
-* Target
+* Target #1 (Rpi-4B)
+    * OS: Ubuntu 22.04.5 LTS
+    * Architecture: arm64
+
+* Target #2 (Azure VM)
     * OS: Ubuntu 22.04.5 LTS
     * Architecture: arm64
 
